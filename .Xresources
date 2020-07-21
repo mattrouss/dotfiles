@@ -1,0 +1,48 @@
+! Use a nice truetype font and size by default...
+xterm*faceName: Liberation Mono for Powerline
+xterm*faceSize: 18
+xterm*renderFont: true
+! Every shell is a login shell by default (for inclusion of all necessary environment variables)
+xterm*loginshell: true
+
+! I like a LOT of scrollback...
+xterm*savelines: 16384
+
+! double-click to select whole URLs :D
+xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
+! DOS-box colours...
+xterm*foreground: rgb:A8/A8/A8
+xterm*background: rgb:00/00/00
+xterm*color0: rgb:1C/1B/19
+xterm*color1: rgb:EF/2F/27
+xterm*color2: rgb:51/9F/50
+xterm*color3: rgb:FB/B8/29
+xterm*color4: rgb:2C/78/BF
+xterm*color5: rgb:E0/2C/6D
+xterm*color6: rgb:0A/AE/B3
+xterm*color7: rgb:D0/BF/A1
+xterm*color8: rgb:2D/2C/29
+xterm*color9: rgb:F7/53/41
+xterm*color10: rgb:98/BC/37
+xterm*color11: rgb:FE/D0/6E
+xterm*color12: rgb:68/A8/E4
+xterm*color13: rgb:FF/5C/8F
+xterm*color14: rgb:53/FD/E9
+xterm*color15: rgb:FC/E8/C3
+
+xterm*color166: rgb:D7/5F/00
+xterm*color208: rgb:FF/87/00
+xterm*color233: rgb:12/12/12
+xterm*color235: rgb:26/26/26
+xterm*color236: rgb:30/30/30
+xterm*color237: rgb:3A/3A/3A
+xterm*color238: rgb:44/44/44
+xterm*color239: rgb:4E/4E/4E
+xterm*color240: rgb:58/58/58
+
+! stop output to terminal from jumping down to bottom of scroll again
+xterm*scrollTtyOutput: true
+xterm*VT100.Translations: #override \
+                 Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\
+                 Ctrl Shift <Key>C:    copy-selection(CLIPBOARD)
