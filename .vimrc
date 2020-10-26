@@ -13,9 +13,12 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'airblade/vim-gitgutter.git'
 Plugin 'morhetz/gruvbox'
 Plugin 'preservim/nerdtree'
+Plugin 'python-mode/python-mode'
+Plugin 'skywind3000/asyncrun.vim'
 Plugin 'srcery-colors/srcery-vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'ycm-core/YouCompleteMe'
+Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim'}
 
 
 call vundle#end()
@@ -44,6 +47,10 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
+set autoindent
+
+"" Splits
+set splitright
 
 "" Map leader to ,
 let mapleader=','
@@ -51,7 +58,7 @@ let mapleader=','
 "" Enable hidden buffers
 set hidden
 
-"" Searching
+"" Pretty Searching 
 set hlsearch
 set incsearch
 set ignorecase
@@ -72,6 +79,11 @@ endif
 let g:gruvbox_contrast_dark = 'hard'
 set bg=dark
 colorscheme gruvbox
+
+"" Hightlight 80 cc ruler
+set cc=80
+highlight ColorColumn ctermbg=0 guibg=lightgrey
+
 
 syntax on
 set ruler
@@ -100,10 +112,25 @@ set titlestring=%F
 
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 
-" Search mappings: These will make it so that going to the next one in a
-" search will center on the line it's found in.
+"****************************************************************************
+"" Keymap Settings
+"****************************************************************************
+
+"" Search mappings: These will make it so that going to the next one in a
+"" search will center on the line it's found in.
 nnoremap n nzzzv
 nnoremap N Nzzzv
+
+"" File Utility Mappings
+nnoremap <C-!> :x<CR>
+
+"" Tab mappings
+
+nnoremap <C-t> :tabnew<CR>
+nnoremap <C-Left> :tabprevious<CR>
+nnoremap <C-Right> :tabnext<CR>
+nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 
 "****************************************************************************
 "" Plugin Settings
@@ -134,5 +161,21 @@ nmap (h <Plug>(GitGutterNextHunk)
 nmap )h <Plug>(GitGutterPrevHunk)
 
 "
-" Display hunk changes on cursor hover
-au CursorMoved * if gitgutter#hunk#in_hunk(line(".")) | GitGutterPreviewHunk | else | pclose | endif
+" AsyncRun
+"
+:let g:asyncrun_open = 8
+noremap <silent> <F7> :AsyncRun -cwd=<root>/build cmake .. && make -j8 <cr> 
+noremap <silent> <F8> :AsyncRun -cwd=<root> sh .run.sh <cr>
+
+""
+"" Display hunk changes on cursor hover
+"au CursorMoved * if gitgutter#hunk#in_hunk(line(".")) | GitGutterPreviewHunk | else | pclose | endif
+
+""Youcompleteme fix
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+let g:ycm_show_diagnostics_ui = 0
+
+"" Python Mode
+
+:autocmd WinEnter * if winnr('$') == 1 && ! empty(&buftype) && ! &modified | quit | endif
+
